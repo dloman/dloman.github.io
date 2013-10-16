@@ -142,7 +142,7 @@ I didn&rsquo;t really want to save my cleartext password in the script so ran pi
 </span><span class='line'>      Mailbox.select(readonly=True)
 </span><span class='line'>      Typ, MessageNums = Mailbox.search(None,'UNSEEN')
 </span><span class='line'>      if '' in MessageNums:
-</span><span class='line'>        MessageNums.remove('')
+</span><span class='line'>        return 0
 </span><span class='line'>      return len(MessageNums[0].split(' '))
 </span><span class='line'>
 </span><span class='line'>
