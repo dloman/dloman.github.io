@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: scripts | Hopeless Lomantic]]></title>
+  <link href="http://dloman.github.io/blog/categories/scripts/atom.xml" rel="self"/>
+  <link href="http://dloman.github.io/"/>
+  <updated>2013-10-15T22:51:17-07:00</updated>
+  <id>http://dloman.github.io/</id>
+  <author>
+    <name><![CDATA[Dan Loman]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[New Mail Script]]></title>
+    <link href="http://dloman.github.io/blog/2013/10/15/new-mail-script/"/>
+    <updated>2013-10-15T22:28:00-07:00</updated>
+    <id>http://dloman.github.io/blog/2013/10/15/new-mail-script</id>
+    <content type="html"><![CDATA[<p>Wrote a quick little script today to check and see if I have new email.
+I am using the standard imaplib library along with python-ntlm with the imap patch found on <a href="https://github.com/xulz/python-ntlm">https://github.com/xulz/python-ntlm</a>
+I didn&rsquo;t really want to save my cleartext password in the script so ran pickled the <code>ImapNtlmAuthHandler</code></p>
+
+<p><code>
+AuthFile = open(SuperCoolFileLocation,'wb')
+AuthHandler = IMAPNtlmAuthHandler(r"domain\username", "password")
+pickle.dump(AuthHandler, AuthFile)
+AuthFile.close()
+</code></p>
+
+<p>So It&rsquo;s probably not much more secure, but its more secure then saveing in plaintext. If I am wrong and there is a totaly better way to do it let me know.</p>
+
+<!-- more -->
+
+
+<p>Here is the the script I use to get the total number of messages.</p>
+
+<p>```
+import getpass, imaplib, pickle</p>
+
+<p>def GetNumberOfMessages():</p>
+
+<pre><code>Mailbox = imaplib.IMAP4("mx.toyon.corp")
+  AuthenticationToken = pickle.load(open('/home/dloman/dloman/imap.auth','rb'))
+  Mailbox.authenticate("NTLM", AuthenticationToken)
+  Mailbox.select(readonly=True)
+  Typ, MessageNums = Mailbox.search(None,'UNSEEN')
+  return len(MessageNums)
+</code></pre>
+
+<p>if <strong>name</strong> == &lsquo;<strong>main</strong>&rsquo;:
+  print print &lsquo;Number Of New Messages =&rsquo;,GetNumberOfMessages()
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

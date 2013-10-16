@@ -6,7 +6,7 @@
 	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
 	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<meta charset="utf-8">
-	<title>Hi there. Thanks for stopping by  | Hopeless Lomantic</title>
+	<title>New Mail Script  | Hopeless Lomantic</title>
 
 <meta name="author" content="Dan Loman"> 
 
@@ -95,18 +95,9 @@ $(document).ready(
 
 </header>
 
-	<div id="content" class="inner">
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/10/15/new-mail-script/">
-		
-			New Mail Script</a>
-	</h2>
-	<div class="entry-content">
-		<p>Wrote a quick little script today to check and see if I have new email.
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">New Mail Script</h2>
+	<div class="entry-content"><p>Wrote a quick little script today to check and see if I have new email.
 I am using the standard imaplib library along with python-ntlm with the imap patch found on <a href="https://github.com/xulz/python-ntlm">https://github.com/xulz/python-ntlm</a>
 I didn&rsquo;t really want to save my cleartext password in the script so ran pickled the <code>ImapNtlmAuthHandler</code></p>
 
@@ -122,10 +113,37 @@ I didn&rsquo;t really want to save my cleartext password in the script so ran pi
 
 <p>So It&rsquo;s probably not much more secure, but its more secure then saveing in plaintext. If I am wrong and there is a totaly better way to do it let me know.</p>
 
+<!-- more -->
 
-		
-		<a href="/blog/2013/10/15/new-mail-script/" class="more-link">Read on &rarr;</a>
-	</div>
+
+<p>Here is the the script I use to get the total number of messages.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import getpass, imaplib, pickle
+</span><span class='line'>
+</span><span class='line'>def GetNumberOfMessages():
+</span><span class='line'>    Mailbox = imaplib.IMAP4("mx.toyon.corp")
+</span><span class='line'>      AuthenticationToken = pickle.load(open('/home/dloman/dloman/imap.auth','rb'))
+</span><span class='line'>      Mailbox.authenticate("NTLM", AuthenticationToken)
+</span><span class='line'>      Mailbox.select(readonly=True)
+</span><span class='line'>      Typ, MessageNums = Mailbox.search(None,'UNSEEN')
+</span><span class='line'>      return len(MessageNums)
+</span><span class='line'>
+</span><span class='line'>if __name__ == '__main__':
+</span><span class='line'>  print print 'Number Of New Messages =',GetNumberOfMessages()</span></code></pre></td></tr></table></div></figure>
+
+</div>
 
 
 <div class="meta">
@@ -152,11 +170,20 @@ I didn&rsquo;t really want to save my cleartext password in the script so ran pi
 	
 </div></article>
 
-<nav id="pagenavi">
-    
-    
-    <div class="center"><a href="/archives">Blog Archives</a></div>
-</nav></div>
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
 	<footer id="footer" class="inner">Copyright &copy; 2013
 
     Dan Loman
