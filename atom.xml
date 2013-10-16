@@ -4,7 +4,7 @@
   <title><![CDATA[Hopeless Lomantic]]></title>
   <link href="http://dloman.github.io/atom.xml" rel="self"/>
   <link href="http://dloman.github.io/"/>
-  <updated>2013-10-16T10:28:04-07:00</updated>
+  <updated>2013-10-16T10:38:40-07:00</updated>
   <id>http://dloman.github.io/</id>
   <author>
     <name><![CDATA[Dan Loman]]></name>
@@ -51,6 +51,7 @@ I didn&rsquo;t really want to save my cleartext password in the script so ran pi
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
+<span class='line-number'>13</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>import getpass, imaplib, pickle
 </span><span class='line'>
 </span><span class='line'>def GetNumberOfMessages():
@@ -59,6 +60,7 @@ I didn&rsquo;t really want to save my cleartext password in the script so ran pi
 </span><span class='line'>      Mailbox.authenticate("NTLM", AuthenticationToken)
 </span><span class='line'>      Mailbox.select(readonly=True)
 </span><span class='line'>      Typ, MessageNums = Mailbox.search(None,'UNSEEN')
+</span><span class='line'>      MessageNums.remove('')
 </span><span class='line'>      return len(MessageNums)
 </span><span class='line'>
 </span><span class='line'>if __name__ == '__main__':
