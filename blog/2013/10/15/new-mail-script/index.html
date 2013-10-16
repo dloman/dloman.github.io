@@ -131,6 +131,7 @@ I didn&rsquo;t really want to save my cleartext password in the script so ran pi
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
+<span class='line-number'>14</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>import getpass, imaplib, pickle
 </span><span class='line'>
 </span><span class='line'>def GetNumberOfMessages():
@@ -139,7 +140,8 @@ I didn&rsquo;t really want to save my cleartext password in the script so ran pi
 </span><span class='line'>      Mailbox.authenticate("NTLM", AuthenticationToken)
 </span><span class='line'>      Mailbox.select(readonly=True)
 </span><span class='line'>      Typ, MessageNums = Mailbox.search(None,'UNSEEN')
-</span><span class='line'>      MessageNums.remove('')
+</span><span class='line'>      if '' in MessageNums:
+</span><span class='line'>        MessageNums.remove('')
 </span><span class='line'>      return len(MessageNums)
 </span><span class='line'>
 </span><span class='line'>if __name__ == '__main__':
