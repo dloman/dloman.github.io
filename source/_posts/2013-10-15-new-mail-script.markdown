@@ -29,7 +29,10 @@ def GetNumberOfMessages():
       Mailbox.authenticate("NTLM", AuthenticationToken)
       Mailbox.select(readonly=True)
       Typ, MessageNums = Mailbox.search(None,'UNSEEN')
-      return len(MessageNums)
+      if '' in MessageNums:
+        return 0
+      return len(MessageNums[0].split(' '))
+
 
 if __name__ == '__main__':
   print print 'Number Of New Messages =',GetNumberOfMessages()
