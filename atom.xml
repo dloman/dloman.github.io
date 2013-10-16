@@ -4,7 +4,7 @@
   <title><![CDATA[Hopeless Lomantic]]></title>
   <link href="http://dloman.github.io/atom.xml" rel="self"/>
   <link href="http://dloman.github.io/"/>
-  <updated>2013-10-15T22:51:17-07:00</updated>
+  <updated>2013-10-16T10:28:04-07:00</updated>
   <id>http://dloman.github.io/</id>
   <author>
     <name><![CDATA[Dan Loman]]></name>
@@ -54,7 +54,7 @@ I didn&rsquo;t really want to save my cleartext password in the script so ran pi
 </pre></td><td class='code'><pre><code class=''><span class='line'>import getpass, imaplib, pickle
 </span><span class='line'>
 </span><span class='line'>def GetNumberOfMessages():
-</span><span class='line'>    Mailbox = imaplib.IMAP4("mx.toyon.corp")
+</span><span class='line'>    Mailbox = imaplib.IMAP4("server.address")
 </span><span class='line'>      AuthenticationToken = pickle.load(open('/home/dloman/dloman/imap.auth','rb'))
 </span><span class='line'>      Mailbox.authenticate("NTLM", AuthenticationToken)
 </span><span class='line'>      Mailbox.select(readonly=True)
