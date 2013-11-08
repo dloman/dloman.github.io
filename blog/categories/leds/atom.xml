@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Hopeless Lomantic]]></title>
-  <link href="http://dloman.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: LEDs | Hopeless Lomantic]]></title>
+  <link href="http://dloman.github.io/blog/categories/leds/atom.xml" rel="self"/>
   <link href="http://dloman.github.io/"/>
   <updated>2013-11-07T21:50:28-08:00</updated>
   <id>http://dloman.github.io/</id>
@@ -52,66 +52,6 @@ Kinda forgot to take a lot of pictures until it was mostly assembled already&hel
 <p><a href="http://www.flickr.com/photos/108066226@N08/10734091536/" title="2013-10-31 20.17.34 by lomancer, on Flickr"><img src="http://farm6.staticflickr.com/5475/10734091536_32d33ce405_b.jpg" width="1024" height="768" alt="2013-10-31 20.17.34"></a></p>
 
 <p>Let me know what you think.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[New Mail Script]]></title>
-    <link href="http://dloman.github.io/blog/2013/10/15/new-mail-script/"/>
-    <updated>2013-10-15T22:28:00-07:00</updated>
-    <id>http://dloman.github.io/blog/2013/10/15/new-mail-script</id>
-    <content type="html"><![CDATA[<p>Wrote a quick little script today to check and see if I have new email.
-I am using the standard imaplib library along with python-ntlm with the imap patch found on <a href="https://github.com/xulz/python-ntlm">https://github.com/xulz/python-ntlm</a>
-I didn&rsquo;t really want to save my cleartext password in the script so ran pickled the <code>ImapNtlmAuthHandler</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>AuthFile = open(SuperCoolFileLocation,'wb')
-</span><span class='line'>AuthHandler = IMAPNtlmAuthHandler(r"domain\username", "password")
-</span><span class='line'>pickle.dump(AuthHandler, AuthFile)
-</span><span class='line'>AuthFile.close()</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So It&rsquo;s probably not much more secure, but its more secure then saveing in plaintext. If I am wrong and there is a totaly better way to do it let me know.</p>
-
-<!-- more -->
-
-
-<p>Here is the the script I use to get the total number of messages.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import getpass, imaplib, pickle
-</span><span class='line'>
-</span><span class='line'>def GetNumberOfMessages():
-</span><span class='line'>    Mailbox = imaplib.IMAP4("server.address")
-</span><span class='line'>      AuthenticationToken = pickle.load(open('/home/dloman/dloman/imap.auth','rb'))
-</span><span class='line'>      Mailbox.authenticate("NTLM", AuthenticationToken)
-</span><span class='line'>      Mailbox.select(readonly=True)
-</span><span class='line'>      Typ, MessageNums = Mailbox.search(None,'UNSEEN')
-</span><span class='line'>      if '' in MessageNums:
-</span><span class='line'>        return 0
-</span><span class='line'>      return len(MessageNums[0].split(' '))
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>if __name__ == '__main__':
-</span><span class='line'>  print print 'Number Of New Messages =',GetNumberOfMessages()</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
