@@ -6,7 +6,7 @@ comments: true
 sharing: true
 categories: [Dinosaucers, Halloween, LEDs, EL Wire]
 ---
-Considering it entirely cardboard, hotglue, paint and lights I am super stoked with how well this years Halloween costume came out.
+Considering It's made entirely out of cardboard, hotglue, paint and lights I am super stoked with how well this years Halloween costume came out.
 
 <a href="http://www.flickr.com/photos/108066226@N08/10737240104/" title="Dinosaucers love to party by lomancer, on Flickr"><img src="http://farm8.staticflickr.com/7357/10737240104_f7c60a45ff.jpg" width="375" height="500" alt="Dinosaucers love to party"></a>
 <!-- more -->
