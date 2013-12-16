@@ -4,7 +4,7 @@
   <title><![CDATA[Category: future hardware projects | Hopeless Lomantic]]></title>
   <link href="http://dloman.github.io/blog/categories/future-hardware-projects/atom.xml" rel="self"/>
   <link href="http://dloman.github.io/"/>
-  <updated>2013-11-07T21:50:28-08:00</updated>
+  <updated>2013-12-16T12:04:41-08:00</updated>
   <id>http://dloman.github.io/</id>
   <author>
     <name><![CDATA[Dan Loman]]></name>
@@ -19,8 +19,8 @@
     <updated>2013-10-15T22:28:00-07:00</updated>
     <id>http://dloman.github.io/blog/2013/10/15/new-mail-script</id>
     <content type="html"><![CDATA[<p>Wrote a quick little script today to check and see if I have new email.
-I am using the standard imaplib library along with python-ntlm with the imap patch found on <a href="https://github.com/xulz/python-ntlm">https://github.com/xulz/python-ntlm</a>
-I didn&rsquo;t really want to save my cleartext password in the script so ran pickled the <code>ImapNtlmAuthHandler</code></p>
+I am using the standard imaplib library along with python-ntlm with a imap patch found on <a href="https://github.com/xulz/python-ntlm">https://github.com/xulz/python-ntlm</a>
+I didn&rsquo;t really want to save my cleartext password in the script so pickled the <code>ImapNtlmAuthHandler</code></p>
 
 <p><code>
 AuthFile = open(SuperCoolFileLocation,'wb')
@@ -29,7 +29,7 @@ pickle.dump(AuthHandler, AuthFile)
 AuthFile.close()
 </code></p>
 
-<p>So It&rsquo;s probably not much more secure, but its more secure then saveing in plaintext. If I am wrong and there is a totaly better way to do it let me know.</p>
+<p>It&rsquo;s probably not much more secure, but it&rsquo;s more secure then saving in plaintext. If I am wrong and there is a better safer way to do it let me know.</p>
 
 <!-- more -->
 
