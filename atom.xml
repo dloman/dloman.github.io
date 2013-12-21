@@ -4,7 +4,7 @@
   <title><![CDATA[Hopeless Lomantic]]></title>
   <link href="http://dloman.github.io/atom.xml" rel="self"/>
   <link href="http://dloman.github.io/"/>
-  <updated>2013-12-16T12:04:41-08:00</updated>
+  <updated>2013-12-20T16:49:50-08:00</updated>
   <id>http://dloman.github.io/</id>
   <author>
     <name><![CDATA[Dan Loman]]></name>
@@ -12,6 +12,73 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Alternative for quick cli filesystem navagation shortcutting]]></title>
+    <link href="http://dloman.github.io/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/"/>
+    <updated>2013-12-19T22:00:00-08:00</updated>
+    <id>http://dloman.github.io/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting</id>
+    <content type="html"><![CDATA[<p>I saw this great <a href=http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html"> blog post</a> about an easy way to create and remove shortcuts for commandline navagation to often used directories.
+In the past I would often manually make bash aliases for commonly used directories, so I was psyched to automate this. I much prefer just typing the <code>DirName</code> instead of the <code>jump DirName</code> used in Jeroen&rsquo;s version, so I modified his commands with my own.
+Here are the commands I came up with.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function mark {
+</span><span class='line'>  echo "alias $1='cd $(pwd)'" &gt;&gt; ~/Dropbox/Config/bash_aliases ; source ~/Dropbox/Config/bash_aliases
+</span><span class='line'>}
+</span><span class='line'>function unmark {
+</span><span class='line'>  sed -e "/^alias $1='cd/d" -i ~/Dropbox/Config/bash_aliases ; source ~/Dropbox/Config/bash_aliases
+</span><span class='line'>}
+</span><span class='line'>function marks {
+</span><span class='line'>  cat ~/Dropbox/Config/bash_aliases | grep "='cd" | sed -e 's/alias //' -e "s/='cd / \=\&gt; /" -e "s/'$//" -e "/^  echo /d" -e "/&&/d" -e "/^  sed/d"
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<!-- more -->
+
+
+<p>This may not be the most elegant way of doing things (that sed command is fairly heinous) but it works great.</p>
+
+<p>BTW keeping my bash_aliases file inside of dropbox is amazing&hellip;aliases and functions instantly appear on all my machines. It&rsquo;s rad.</p>
+
+<p>P.S. originally I had the <code>unmark</code> command looking like this</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>}
+</span><span class='line'>function unmark {
+</span><span class='line'>  sed -e "/^alias $1/d" -i ~/.bash_aliases ; source ~/.bash_aliases
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which seems like a only minor modification from the current version. This seemingly minor change of <code>alias $1</code> &ndash;> <code>alias $1='cd</code> looks like nothing, but one time I accidentally typed</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$mark</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which created the line <code>alias ='cd ~/WhereverIWasWhenIDidThis'</code> in my <code>~/Dropbox/Config/bash_aliases</code>
+realising I just made a empty alias I immediatly tried removing the alias with</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$unmark</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which proceded to delete all aliases in my <code>~/Dropbox/Config/bash_aliases</code>!!!
+That was interesting, thank goodness for dropbox backing things up (another reason to keep config files in dropbox).
+Let me know what you think in the comments or hit me up on twitter.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Dinosaucers]]></title>

@@ -6,12 +6,12 @@
 	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
 	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<meta charset="utf-8">
-	<title>Hi there. Thanks for stopping by  | Hopeless Lomantic</title>
+	<title>Alternative for quick cli filesystem navagation shortcutting  | Hopeless Lomantic</title>
 
 <meta name="author" content="Dan Loman"> 
 
 <meta name="description" content="I saw this great blog post about an easy way to create and remove shortcuts for commandline navagation to often used directories.
-In the past I &hellip;"> <meta name="keywords" content="">
+In the past I would &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -95,18 +95,9 @@ $(document).ready(
 
 </header>
 
-	<div id="content" class="inner">
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/">
-		
-			Alternative for Quick Cli Filesystem Navagation Shortcutting</a>
-	</h2>
-	<div class="entry-content">
-		<p>I saw this great <a href=http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html"> blog post</a> about an easy way to create and remove shortcuts for commandline navagation to often used directories.
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Alternative for Quick Cli Filesystem Navagation Shortcutting</h2>
+	<div class="entry-content"><p>I saw this great <a href=http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html"> blog post</a> about an easy way to create and remove shortcuts for commandline navagation to often used directories.
 In the past I would often manually make bash aliases for commonly used directories, so I was psyched to automate this. I much prefer just typing the <code>DirName</code> instead of the <code>jump DirName</code> used in Jeroen&rsquo;s version, so I modified his commands with my own.
 Here are the commands I came up with.</p>
 
@@ -130,10 +121,42 @@ Here are the commands I came up with.</p>
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
+<!-- more -->
 
-		
-		<a href="/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/" class="more-link">Read on &rarr;</a>
-	</div>
+
+<p>This may not be the most elegant way of doing things (that sed command is fairly heinous) but it works great.</p>
+
+<p>BTW keeping my bash_aliases file inside of dropbox is amazing&hellip;aliases and functions instantly appear on all my machines. It&rsquo;s rad.</p>
+
+<p>P.S. originally I had the <code>unmark</code> command looking like this</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>}
+</span><span class='line'>function unmark {
+</span><span class='line'>  sed -e "/^alias $1/d" -i ~/.bash_aliases ; source ~/.bash_aliases
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which seems like a only minor modification from the current version. This seemingly minor change of <code>alias $1</code> &ndash;> <code>alias $1='cd</code> looks like nothing, but one time I accidentally typed</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$mark</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which created the line <code>alias ='cd ~/WhereverIWasWhenIDidThis'</code> in my <code>~/Dropbox/Config/bash_aliases</code>
+realising I just made a empty alias I immediatly tried removing the alias with</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$unmark</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which proceded to delete all aliases in my <code>~/Dropbox/Config/bash_aliases</code>!!!
+That was interesting, thank goodness for dropbox backing things up (another reason to keep config files in dropbox).
+Let me know what you think in the comments or hit me up on twitter.</p>
+</div>
 
 
 <div class="meta">
@@ -158,117 +181,30 @@ Here are the commands I came up with.</p>
 
 </div>
 	
-		<span class="comments"><a href="/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting//index.html#disqus_thread">Comments</a></span>
+		<span class="comments"><a href="/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/#disqus_thread">Comments</a></span>
 	
 </div></article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/11/07/dinosaucers/">
-		
-			Dinosaucers</a>
-	</h2>
-	<div class="entry-content">
-		<p>Considering It&rsquo;s made entirely out of cardboard, hotglue, paint and lights I am super stoked with how well this years Halloween costume came out.</p>
-
-<p><a href="http://www.flickr.com/photos/108066226@N08/10737240104/" title="Dinosaucers love to party by lomancer, on Flickr"><img src="http://farm8.staticflickr.com/7357/10737240104_f7c60a45ff.jpg" width="375" height="500" alt="Dinosaucers love to party"></a></p>
-
-
-		
-		<a href="/blog/2013/11/07/dinosaucers/" class="more-link">Read on &rarr;</a>
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
 	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-07T21:30:00-08:00" pubdate data-updated="true">Nov 7<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/dinosaucers/'>Dinosaucers</a>, <a class='category' href='/blog/categories/el-wire/'>EL Wire</a>, <a class='category' href='/blog/categories/halloween/'>Halloween</a>, <a class='category' href='/blog/categories/leds/'>LEDs</a>
-
-
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
-	
-		<span class="comments"><a href="/blog/2013/11/07/dinosaucers//index.html#disqus_thread">Comments</a></span>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/10/15/new-mail-script/">
-		
-			New Mail Script</a>
-	</h2>
-	<div class="entry-content">
-		<p>Wrote a quick little script today to check and see if I have new email.
-I am using the standard imaplib library along with python-ntlm with a imap patch found on <a href="https://github.com/xulz/python-ntlm">https://github.com/xulz/python-ntlm</a>
-I didn&rsquo;t really want to save my cleartext password in the script so pickled the <code>ImapNtlmAuthHandler</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>AuthFile = open(SuperCoolFileLocation,'wb')
-</span><span class='line'>AuthHandler = IMAPNtlmAuthHandler(r"domain\username", "password")
-</span><span class='line'>pickle.dump(AuthHandler, AuthFile)
-</span><span class='line'>AuthFile.close()</span></code></pre></td></tr></table></div></figure>
-
-
-<p>It&rsquo;s probably not much more secure, but it&rsquo;s more secure then saving in plaintext. If I am wrong and there is a better safer way to do it let me know.</p>
-
-
-		
-		<a href="/blog/2013/10/15/new-mail-script/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
 
 
 
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-15T22:28:00-07:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/future-hardware-projects/'>future hardware projects</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/scripts/'>scripts</a>
-
-
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-	
-		<span class="comments"><a href="/blog/2013/10/15/new-mail-script//index.html#disqus_thread">Comments</a></span>
-	
-</div></article>
-
-<nav id="pagenavi">
-    
-    
-    <div class="center"><a href="/archives">Blog Archives</a></div>
-</nav></div>
+</section>
+</div>
 	<footer id="footer" class="inner">Copyright &copy; 2013
 
     Dan Loman
@@ -289,7 +225,10 @@ Powered by Octopress.
       var disqus_shortname = 'dloman';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dloman.github.io/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/';
+        var disqus_url = 'http://dloman.github.io/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
