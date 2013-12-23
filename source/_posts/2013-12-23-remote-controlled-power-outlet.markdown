@@ -7,7 +7,8 @@ sharing: true
 categories: [Electronics, wireless, 315 Mhz, laser light shows]
 ---
 Was on adafruit a few weeks backs and found <a href="https://www.adafruit.com/products/1097"> this little guy </a> and <a href="https://www.adafruit.com/products/1095"> the corresponding remote </a>.
-I immeditely purchased that I had one of these <a href="http://www.amazon.com/BeesClover-4-Channel-interface-dupont-15-20mA/dp/B00E4HJA0Q/ref=sr_1_7?ie=UTF8&qid=1387830865&sr=8-7&keywords=relay+board"> relay boards </a> lying around in my closet. So i decided to make a 315 Mhz controlled junction box for turning on my lights with a remote. Here is a video of the finished product <video>
+I immeditely purchased that I had one of these <a href="http://www.amazon.com/BeesClover-4-Channel-interface-dupont-15-20mA/dp/B00E4HJA0Q/ref=sr_1_7?ie=UTF8&qid=1387830865&sr=8-7&keywords=relay+board"> relay boards </a> lying around in my closet. So i decided to make a 315 Mhz controlled junction box for turning on my lights with a remote. Here is a video of the finished product
+<iframe width="420" height="315" src="//www.youtube.com/embed/3by3tbnun00" frameborder="0" allowfullscreen></iframe>
 Here is how I made this little guy.
 <!-- more -->
 <b> Parts List: </b><br>
