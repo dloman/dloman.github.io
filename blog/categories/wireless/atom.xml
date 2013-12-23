@@ -4,7 +4,7 @@
   <title><![CDATA[Category: wireless | Hopeless Lomantic]]></title>
   <link href="http://dloman.github.io/blog/categories/wireless/atom.xml" rel="self"/>
   <link href="http://dloman.github.io/"/>
-  <updated>2013-12-23T14:37:06-08:00</updated>
+  <updated>2013-12-23T14:40:22-08:00</updated>
   <id>http://dloman.github.io/</id>
   <author>
     <name><![CDATA[Dan Loman]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Remote Controlled Junction Power Outlet]]></title>
-    <link href="http://dloman.github.io/blog/2013/12/23/remote-controlled-junction-power-outlet/"/>
+    <title type="html"><![CDATA[Remote Controlled Power Outlet]]></title>
+    <link href="http://dloman.github.io/blog/2013/12/23/remote-controlled-power-outlet/"/>
     <updated>2013-12-23T12:29:00-08:00</updated>
-    <id>http://dloman.github.io/blog/2013/12/23/remote-controlled-junction-power-outlet</id>
+    <id>http://dloman.github.io/blog/2013/12/23/remote-controlled-power-outlet</id>
     <content type="html"><![CDATA[<p>Was on adafruit a few weeks backs and found <a href="https://www.adafruit.com/products/1097"> this little guy </a> and <a href="https://www.adafruit.com/products/1095"> the corresponding remote </a>.
 I immeditely purchased that I had one of these <a href="http://www.amazon.com/BeesClover-4-Channel-interface-dupont-15-20mA/dp/B00E4HJA0Q/ref=sr_1_7?ie=UTF8&qid=1387830865&sr=8-7&keywords=relay+board"> relay boards </a> lying around in my closet. So i decided to make a 315 Mhz controlled junction box for turning on my lights with a remote. Here is a video of the finished product <video>
 Here is how I made this little guy.</p>
