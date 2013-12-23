@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Remote Controlled Junction Power Outlet"
+title: "Remote Controlled Power Outlet"
 date: 2013-12-23 12:29
 comments: true
 sharing: true
