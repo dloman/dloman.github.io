@@ -1,0 +1,320 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="google-site-verification" content="f1OtvP7JCHm6M9Ca7vMcFg3q-1NEOvDMcSKfKlVW_pA" />
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Remote Controlled Junction Power Outlet  | Hopeless Lomantic</title>
+
+<meta name="author" content="Dan Loman"> 
+
+<meta name="description" content="Was on adafruit a few weeks backs and found this little guy and the corresponding remote .
+I immeditely purchased that I had one of these relay &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Hopeless Lomantic" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Hopeless Lomantic</a></h1>
+<h4>Hi there. Thanks for stopping by</h4>
+<nav id="main-nav"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:dloman.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Remote Controlled Junction Power Outlet</h2>
+	<div class="entry-content"><p>Was on adafruit a few weeks backs and found <a href="https://www.adafruit.com/products/1097"> this little guy </a> and <a href="https://www.adafruit.com/products/1095"> the corresponding remote </a>.
+I immeditely purchased that I had one of these <a href="http://www.amazon.com/BeesClover-4-Channel-interface-dupont-15-20mA/dp/B00E4HJA0Q/ref=sr_1_7?ie=UTF8&qid=1387830865&sr=8-7&keywords=relay+board"> relay boards </a> lying around in my closet. So i decided to make a 315 Mhz controlled junction box for turning on my lights with a remote. Here is a video of the finished product <video>
+Here is how I made this little guy.</p>
+
+<!-- more -->
+
+
+<p><b> Parts List: </b><br>
+<a href="https://www.adafruit.com/products/1097"> Remote Board </a> <br>
+<a href="https://www.adafruit.com/products/1095"> KeyFob </a><br>
+<a href="http://www.amazon.com/BeesClover-4-Channel-interface-dupont-15-20mA/dp/B00E4HJA0Q/ref=sr_1_7?ie=UTF8&qid=1387830865&sr=8-7&keywords=relay+board"> Relay Board</a><br>
+<a href="http://www.homedepot.com/p/Steel-City-2-Gang-Square-Electrical-Box-521711234EW-30R/202590467#"> Junction Box </a><br>
+<a href="http://www.homedepot.com/p/Leviton-15-Amp-Duplex-Outlet-White-R52-05320-00W/202066670#"> 2x Outlets </a><br>
+<a href="http://www.homedepot.com/p/Leviton-2-Gang-Duplex-Outlet-Wall-Plate-Ivory-R51-86016-00I/100046108?N=arcd%2FNtk-All%2FNtt-Outlet%252BWall%252BPlate%3FNs%3DP_REP_PRC_MODE%257C0%26NCNI-5#"> Outlet Cover </a> <br>
+<b> Stuff I had laying around </b><br>
+5v old cell phone charger <br>
+Old computer power supply cable <br>
+fiber glass resin (optional) <br></p>
+
+<p><b> Step 1:</b><br>
+Look at the location of the vcc gnd and control pins on your relay board and match them up as best as possible with your remote board.</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11520002913/player/924bb87a6d" height="480" width="640"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<br>
+
+
+<p><b> Step 2:</b><br>
+Solder the corresponding pins from the relay to the remote. (there is a orange wire in in the back/underneath hooking up my vcc)</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519997473/player/65477bd33d" height="480" width="640"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+
+
+<br>
+
+
+<p><b> Step 3:</b><br>
+Attach longer leads to ground and vcc to allow for connection to a power supply.</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519888165/player/f1702f4226" height="480" width="640"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+
+
+<br>
+
+
+<p><b> Step 4:</b><br>
+Take the junction box and line the inside with electrical tape. this will keep things from shorting accidentally. Also if you decide to try and waterproof it will take the resin from seeping through the holes.<br></p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519881095/player/6367fb057d" height="640" width="480"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<br>
+
+
+<p><b> Step 5:</b><br>
+Take the outlets and on the cold side (big prong) on both outlets break off the tab connecting the 2 junctions together. If you look closely in the picture I have broken off the tab on the plug on the right but not yet for the one on the left. <br></p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519879395/player/a87c0062bf" height="640" width="480"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+
+
+<br>
+
+
+<p><b> Step 6:</b><br>
+Connect 4 wires to the middle slot of each relay and solder them together</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519955486/player/dd19df626d" height="640" width="480"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<br>
+
+
+<p><b> Step 7:</b><br>
+Grab an old cellphone charger (the smaller the better) and connect 5v to vcc and gnd to gnd.</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519973103/player/f2cec6a0ae" height="640" width="480"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<br>
+
+
+<p><b> Step 8:</b><br>
+Attach the the 4 cold pins to the left post of the relay.
+If you want specific order in which outlet is controlled by which button this is the time to figure this out.
+Depending on how you soldered the controller make sure your desired button controls the corresponding desired outlet.
+(You can always test this by powering up the dc power supply and seeing which lights on the relay board switch when specific buttons are pressed and wiring the desired outlets from there.)</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519884284/player/2aea9368c8" height="640" width="480"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+
+
+<br>
+
+
+<p><b> Step 9:</b><br>
+Connect the neutral line to the 4 lines coming out of the outlets (2 green and 2 black for me), and connect the hot line to the 4 lines that you soldered together in step 6. Then hook up the cellphone power supply to the 120v hot and nuetral lines to give it power.
+Connect the ground pin of the power cords to the ground lead on one of the electrical outlets. This will wire the case to ground and provide some saftey if something accidentally shorts against the housing.
+Then double check everything is taped and heat shrunked safely and plug it in and test and make sure everything works.</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519878864/player/769618d50b" height="480" width="640"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<br>
+
+
+
+
+<br>
+
+
+<p><b> Step 10:</b><br>
+Carefully cram everything into the junction box and tighten all the screws</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519966443/player/aa82b20a6a" height="480" width="640"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<br>
+
+
+<p><b>Step 11:(I havent tried this one yet&hellip;)</b><br>
+To make the electronics inside water resistant fill the junction box with fiberglass resin. this will allow the box to be used outside and get rained on&hellip;.or you could spend a little more money and just buy a water proof junction box and outlets from the start and be significantly safer&hellip;but where is the fun in that?</p>
+
+<br>
+
+
+<p>Questions? Comments? Let me know what you think!</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-23T12:29:00-08:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/315-mhz/'>315 Mhz</a>, <a class='category' href='/blog/categories/electronics/'>Electronics</a>, <a class='category' href='/blog/categories/laser-light-shows/'>laser light shows</a>, <a class='category' href='/blog/categories/wireless/'>wireless</a>
+
+
+</div>
+	
+		<span class="comments"><a href="/blog/2013/12/23/remote-controlled-junction-power-outlet/#disqus_thread">Comments</a></span>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    Dan Loman
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'dloman';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dloman.github.io/blog/2013/12/23/remote-controlled-junction-power-outlet/';
+        var disqus_url = 'http://dloman.github.io/blog/2013/12/23/remote-controlled-junction-power-outlet/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

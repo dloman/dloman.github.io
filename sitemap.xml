@@ -6,7 +6,7 @@
     </url>
     <url>
         <loc>http://dloman.github.io/blog/2013/11/07/dinosaucers/</loc>
-        <lastmod>2013-12-16T12:06:17-08:00</lastmod>
+        <lastmod>2013-12-23T14:23:02-08:00</lastmod>
     </url>
     <url>
         <loc>
@@ -15,20 +15,26 @@
         <lastmod>2013-12-20T16:49:49-08:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://dloman.github.io/blog/2013/12/23/remote-controlled-junction-power-outlet/
+        </loc>
+        <lastmod>2013-12-23T14:37:05-08:00</lastmod>
+    </url>
+    <url>
         <loc>http://dloman.github.io/robots.txt</loc>
         <lastmod>2013-12-16T12:06:17-08:00</lastmod>
     </url>
     <url>
         <loc>http://dloman.github.io/blog/archives/</loc>
-        <lastmod>2013-12-20T16:49:49-08:00</lastmod>
+        <lastmod>2013-12-23T14:37:05-08:00</lastmod>
     </url>
     <url>
         <loc>http://dloman.github.io/archives/</loc>
-        <lastmod>2013-12-20T16:49:49-08:00</lastmod>
+        <lastmod>2013-12-23T14:37:05-08:00</lastmod>
     </url>
     <url>
         <loc>http://dloman.github.io/portfolio/</loc>
-        <lastmod>2013-12-20T16:49:49-08:00</lastmod>
+        <lastmod>2013-12-23T14:37:05-08:00</lastmod>
     </url>
     <url>
         <loc>http://dloman.github.io/about/</loc>
@@ -36,6 +42,6 @@
     </url>
     <url>
         <loc>http://dloman.github.io/</loc>
-        <lastmod>2013-12-20T16:49:49-08:00</lastmod>
+        <lastmod>2013-12-23T14:37:05-08:00</lastmod>
     </url>
 </urlset>
