@@ -1,0 +1,245 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="google-site-verification" content="f1OtvP7JCHm6M9Ca7vMcFg3q-1NEOvDMcSKfKlVW_pA" />
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Alternative for quick cli filesystem navagation shortcutting  | Hopeless Lomantic</title>
+
+<meta name="author" content="Dan Loman"> 
+
+<meta name="description" content="I saw this great blog post about an easy way to create and remove shortcuts for commandline navagation to often used directories.
+In the past I would &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Hopeless Lomantic" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Hopeless Lomantic</a></h1>
+<h4>Hi there. Thanks for stopping by</h4>
+<nav id="main-nav"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:dloman.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Alternative for Quick Cli Filesystem Navagation Shortcutting</h2>
+	<div class="entry-content"><p>I saw this great <a href=http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html"> blog post</a> about an easy way to create and remove shortcuts for commandline navagation to often used directories.
+In the past I would often manually make bash aliases for commonly used directories, so I was psyched to automate this. I much prefer just typing the <code>DirName</code> instead of the <code>jump DirName</code> used in Jeroen&rsquo;s version, so I modified his commands with my own.
+Here are the commands I came up with.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function mark {
+</span><span class='line'>  echo "alias $1='cd $(pwd)'" &gt;&gt; ~/Dropbox/Config/bash_aliases ; source ~/Dropbox/Config/bash_aliases
+</span><span class='line'>}
+</span><span class='line'>function unmark {
+</span><span class='line'>  sed -e "/^alias $1='cd/d" -i ~/Dropbox/Config/bash_aliases ; source ~/Dropbox/Config/bash_aliases
+</span><span class='line'>}
+</span><span class='line'>function marks {
+</span><span class='line'>  cat ~/Dropbox/Config/bash_aliases | grep "='cd" | sed -e 's/alias //' -e "s/='cd / \=\&gt; /" -e "s/'$//" -e "/^  echo /d" -e "/&&/d" -e "/^  sed/d"
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<!-- more -->
+
+
+<p>This may not be the most elegant way of doing things (that sed command is fairly heinous) but it works great.</p>
+
+<p>BTW keeping my bash_aliases file inside of dropbox is amazing&hellip;aliases and functions instantly appear on all my machines. It&rsquo;s rad.</p>
+
+<p>P.S. originally I had the <code>unmark</code> command looking like this</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>}
+</span><span class='line'>function unmark {
+</span><span class='line'>  sed -e "/^alias $1/d" -i ~/.bash_aliases ; source ~/.bash_aliases
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which seems like a only minor modification from the current version. This seemingly minor change of <code>alias $1</code> &ndash;> <code>alias $1='cd</code> looks like nothing, but one time I accidentally typed</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$mark</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which created the line <code>alias ='cd ~/WhereverIWasWhenIDidThis'</code> in my <code>~/Dropbox/Config/bash_aliases</code>
+realising I just made a empty alias I immediatly tried removing the alias with</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$unmark</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which proceded to delete all aliases in my <code>~/Dropbox/Config/bash_aliases</code>!!!
+That was interesting, thank goodness for dropbox backing things up (another reason to keep config files in dropbox).
+Let me know what you think in the comments or hit me up on twitter.</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-19T22:00:00-08:00" pubdate data-updated="true">Dec 19<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/aliases/'>aliases</a>, <a class='category' href='/blog/categories/bash/'>bash</a>, <a class='category' href='/blog/categories/cli/'>cli</a>
+
+
+</div>
+	
+		<span class="comments"><a href="/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/#disqus_thread">Comments</a></span>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Dan Loman
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'dloman';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dloman.github.io/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/';
+        var disqus_url = 'http://dloman.github.io/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

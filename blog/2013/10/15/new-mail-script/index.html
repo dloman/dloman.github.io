@@ -1,0 +1,238 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="google-site-verification" content="f1OtvP7JCHm6M9Ca7vMcFg3q-1NEOvDMcSKfKlVW_pA" />
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>New Mail Script  | Hopeless Lomantic</title>
+
+<meta name="author" content="Dan Loman"> 
+
+<meta name="description" content="Wrote a quick little script today to check and see if I have new email.
+I am using the standard imaplib library along with python-ntlm with a imap &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Hopeless Lomantic" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Hopeless Lomantic</a></h1>
+<h4>Hi there. Thanks for stopping by</h4>
+<nav id="main-nav"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:dloman.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">New Mail Script</h2>
+	<div class="entry-content"><p>Wrote a quick little script today to check and see if I have new email.
+I am using the standard imaplib library along with python-ntlm with a imap patch found on <a href="https://github.com/xulz/python-ntlm">https://github.com/xulz/python-ntlm</a>
+I didn&rsquo;t really want to save my cleartext password in the script so pickled the <code>ImapNtlmAuthHandler</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>AuthFile = open(SuperCoolFileLocation,'wb')
+</span><span class='line'>AuthHandler = IMAPNtlmAuthHandler(r"domain\username", "password")
+</span><span class='line'>pickle.dump(AuthHandler, AuthFile)
+</span><span class='line'>AuthFile.close()</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&rsquo;s probably not much more secure, but it&rsquo;s more secure then saving in plaintext. If I am wrong and there is a better safer way to do it let me know.</p>
+
+<!-- more -->
+
+
+<p>Here is the the script I use to get the total number of messages.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import getpass, imaplib, pickle
+</span><span class='line'>
+</span><span class='line'>def GetNumberOfMessages():
+</span><span class='line'>    Mailbox = imaplib.IMAP4("server.address")
+</span><span class='line'>      AuthenticationToken = pickle.load(open('/home/dloman/dloman/imap.auth','rb'))
+</span><span class='line'>      Mailbox.authenticate("NTLM", AuthenticationToken)
+</span><span class='line'>      Mailbox.select(readonly=True)
+</span><span class='line'>      Typ, MessageNums = Mailbox.search(None,'UNSEEN')
+</span><span class='line'>      if '' in MessageNums:
+</span><span class='line'>        return 0
+</span><span class='line'>      return len(MessageNums[0].split(' '))
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>if __name__ == '__main__':
+</span><span class='line'>  print print 'Number Of New Messages =',GetNumberOfMessages()</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T22:28:00-07:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/future-hardware-projects/'>future hardware projects</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/scripts/'>scripts</a>
+
+
+</div>
+	
+		<span class="comments"><a href="/blog/2013/10/15/new-mail-script/#disqus_thread">Comments</a></span>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Dan Loman
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'dloman';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dloman.github.io/blog/2013/10/15/new-mail-script/';
+        var disqus_url = 'http://dloman.github.io/blog/2013/10/15/new-mail-script/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>
