@@ -6,7 +6,7 @@ sharing: true
 comments: true
 categories: [bash, aliases, cli]
 ---
-I saw this great <a href=http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html"> blog post</a> about an easy way to create and remove shortcuts for commandline navagation to often used directories.
+I saw this great <a href="http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html"> blog post</a> about an easy way to create and remove shortcuts for commandline navagation to often used directories.
 In the past I would often manually make bash aliases for commonly used directories, so I was psyched to automate this. I much prefer just typing the ```DirName``` instead of the ```jump DirName``` used in Jeroen's version, so I modified his commands with my own.
 Here are the commands I came up with.
 
