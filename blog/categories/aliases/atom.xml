@@ -4,7 +4,7 @@
   <title><![CDATA[Category: aliases | Hopeless Lomantic]]></title>
   <link href="http://dloman.github.io/blog/categories/aliases/atom.xml" rel="self"/>
   <link href="http://dloman.github.io/"/>
-  <updated>2014-03-20T13:15:25-07:00</updated>
+  <updated>2014-03-27T11:08:36-07:00</updated>
   <id>http://dloman.github.io/</id>
   <author>
     <name><![CDATA[Dan Loman]]></name>
@@ -18,7 +18,7 @@
     <link href="http://dloman.github.io/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/"/>
     <updated>2013-12-19T22:00:00-08:00</updated>
     <id>http://dloman.github.io/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting</id>
-    <content type="html"><![CDATA[<p>I saw this great <a href=http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html"> blog post</a> about an easy way to create and remove shortcuts for commandline navagation to often used directories.
+    <content type="html"><![CDATA[<p>I saw this great <a href="http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html"> blog post</a> about an easy way to create and remove shortcuts for commandline navagation to often used directories.
 In the past I would often manually make bash aliases for commonly used directories, so I was psyched to automate this. I much prefer just typing the <code>DirName</code> instead of the <code>jump DirName</code> used in Jeroen&rsquo;s version, so I modified his commands with my own.
 Here are the commands I came up with.</p>
 
