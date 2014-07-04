@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Keyless Ignition | Hopeless Lomantic]]></title>
+  <link href="http://dloman.github.io/blog/categories/keyless-ignition/atom.xml" rel="self"/>
+  <link href="http://dloman.github.io/"/>
+  <updated>2014-07-04T14:45:09-07:00</updated>
+  <id>http://dloman.github.io/</id>
+  <author>
+    <name><![CDATA[Dan Loman]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Keyless entry and ignition system]]></title>
+    <link href="http://dloman.github.io/blog/2014/07/04/keyless-entry-and-ignition-system.markdown/"/>
+    <updated>2014-07-04T14:11:00-07:00</updated>
+    <id>http://dloman.github.io/blog/2014/07/04/keyless-entry-and-ignition-system.markdown</id>
+    <content type="html"><![CDATA[<p>This project, is an old project I did as my final exam for UCSB Physics 128BL, Digital Electronics Lab. watch the video for a demonstration or click through for more (albeit sparse) details.</p>
+
+<iframe width="560" height="315" src="http://dloman.github.io//www.youtube.com/embed/wIs6U7mWE40?list=UUdl2VKnMrFutvGa1jazVu2Q" frameborder="0" allowfullscreen></iframe>
+
+
+<!-- more -->
+
+
+<p>This project was very simple. And unfortunately I didn&rsquo;t document the process of installing this system into my car.
+Pictures of cutting a hole in the side of my car would be awesome to have&hellip;
+None the less this system is an off the shelf ($15 swap meet) keyless ignition system wired into
+the cars' starter and an arduino wired to 2 keypads.
+One of the keypad is outside the car for lock/unlock,
+and the other keypad is on the inside of the door for ignition.
+The arduino listens for the correct password on the keypad
+and then triggers an npn transistor wired to the remote of the keyless ignition system
+or the lock unlock switch of the car.
+The youtube video is really the only documentation I took of the entire project,
+but figured I would do a small writeup because this worked pretty well for such a simple solution.</p>
+]]></content>
+  </entry>
+  
+</feed>
