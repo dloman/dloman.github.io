@@ -6,7 +6,9 @@ comments: true
 publish: false
 categories: [bash, aliases, cli, sed]
 ---
-A while back I wrote a little bash function which automatically create bash aliases for moving around commonly used areas in my file system.
+
+A while back I wrote a <a href=http://danloman.org/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/> little bash function</a>
+which automatically create bash aliases for moving around commonly used areas in my file system.
 This worked awesomely until one day I was working on a machine where I was not my normal username.
 I use a synced bash_alias file, so when I used the alias and moved to edit files in /home/dloman/Source/ and was not the dloman user things got very confusing when I tried to save my edits.
 Needless to say it took me awhile of flailing thinking I was completly insane until I figured out what was happening.
