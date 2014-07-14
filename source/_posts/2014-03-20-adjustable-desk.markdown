@@ -12,7 +12,7 @@ and not wanting to be in lots of pain I decided to make an adjustable desk.
 So my roommate and I built me an adjustable desk. It came out amazingly well.
 For buildpics and comments click the link.
 
-<a href="https://www.flickr.com/photos/108066226@N08/13451225113" title="Untitled by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3716/13451225113_93ee292648.jpg" width="500" height="375" alt="Untitled"></a>
+<a href="https://www.flickr.com/photos/108066226@N08/13451225113" title="Adjustable Desk by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3716/13451225113_93ee292648.jpg" width="500" height="375" alt="Adjustable Desk"></a>
 
 <!-- more -->
 ## Planning Process
@@ -83,9 +83,9 @@ Here i am calibrating the 2 actuators by with power resistors to slow one of the
 
 <a href="https://www.flickr.com/photos/108066226@N08/13420139994" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm8.staticflickr.com/7160/13420139994_e6dd59d6c4.jpg" width="500" height="375" alt="Adjustable Desk Build"></a>
 
-And here is the finished product.
+And here again is the finished product.
 
-<a href="https://www.flickr.com/photos/108066226@N08/13451225113" title="Untitled by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3716/13451225113_93ee292648.jpg" width="500" height="375" alt="Untitled"></a>
+<a href="https://www.flickr.com/photos/108066226@N08/13451225113" title="Adjustable Desk by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3716/13451225113_93ee292648.jpg" width="500" height="375" alt="Adjustable Desk"></a>
 
 ##Future Additions
 There are quite a lot of additions I want to make to the desk.
