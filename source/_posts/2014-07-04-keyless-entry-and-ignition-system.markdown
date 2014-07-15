@@ -6,7 +6,7 @@ comments: true
 categories: [Key-less Entry, Key-less Ignition, Arduino, UCSB, PHYS128BL]
 ---
 This project, is an old project I did as my final exam for UCSB Physics 128BL, Digital Electronics Lab. watch the video for a demonstration or click through for more (albeit sparse) details.
-<iframe width="560" height="315" src="//www.youtube.com/embed/wIs6U7mWE40?list=UUdl2VKnMrFutvGa1jazVu2Q" frameborder="0" allowfullscreen></iframe>
+<iframe width="420" height="315" src="//www.youtube.com/embed/wIs6U7mWE40" frameborder="0" allowfullscreen></iframe>
 <!-- more -->
 This project was very simple. And unfortunately I didn't document the process of installing this system into my car.
 Pictures of cutting a hole in the side of my car would be awesome to have...
