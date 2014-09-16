@@ -6,28 +6,27 @@ comments: true
 categories: [Android, bash, password management, SHA1, security]
 ---
 Passwords are annoying.
-I am not very good at remembering passwords and am even worse at remembering strong passwords.
-Even though I am fully aware of how terrible it is to reuse passwords it is just so much easier
-and I never forget my 1 password that I pretty much use for everything.
-Knowing that this is a terrible way to do handle my passwords and
-not really liking storing passwords in an encrypted volume or online password manager I decided to use
-hash functions.
+I am not very good at remembering passwords and I am even worse at remembering strong passwords.
+While I am fully aware of how insecure it is to reuse passwords,
+it is so much easier that I usually ending up doing it in practice.
+There are several solutions to this problem, the most common being storing passwords in an encrypted volume
+or using an online password manager. I don't like either of those solutions because all of your passwords are being stored on disk on even worse on someone else's machine. So I built my own password generator using hash functions.
 
 <!-- more -->
 
 ##Hash Function
 according to wikipedia
-"a <a href=http://en.wikipedia.org/wiki/Cryptographic_hash_function> cryptographic hash function </a>
-is a function which generates fixed-length output data that acts as a shortened reference to the original
-data which is considered practically impossible to invert, that is, to recreate the input data from its hash value alone."
+>"a <a href=http://en.wikipedia.org/wiki/Cryptographic_hash_function> cryptographic hash function </a>
+>is a function which generates fixed-length output data that acts as a shortened reference to the original
+>data which is considered practically impossible to invert, that is, to recreate the input data from its hash value alone."
 
 This impossibility to invert means that even if my password gets leaked it is impossible to get the string from which my password was generated.
 And as long as there are no collisions in the hash function it is guaranteed that all password + website combinations will generate a unique alpha numeric string.
 
 ##What my app does
-The applications are quite simple.
-They take input from the user for a password and website.
-They then concatenate those strings together and use that string as an input to SHA1 hash function.
+The application is quite simple.
+It takes input from the user for a password and website.
+It then concatenates those strings together and feeds that string as an input to the SHA1 hash function.
 The first 10 digits of the output of the SHA1 function are then copied into the copy/paste buffer
 of the system to be pasted into the password field for the site.
 
@@ -55,8 +54,8 @@ This was a pain, and since this was a very simple application I figured it would
 good project to learn android development with.
 So I wrote an android application which does the exact same thing as the bash script.
 Its not the prettiest app in the world but it works great.
-you can check out the android app on my
+You can check out the android app on my
 <a href=http://github.com/dloman/PasswordManager.git> Github Page </a>
 
-Let me know if you have any improvements, questions or comments!
+Let me know if you have any improvements, questions, gaping security holes, or comments!
 
