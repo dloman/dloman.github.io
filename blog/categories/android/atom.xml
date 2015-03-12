@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: android | Hopeless Lomantic]]></title>
+  <link href="http://danloman.org/blog/categories/android/atom.xml" rel="self"/>
+  <link href="http://danloman.org/"/>
+  <updated>2015-03-12T13:21:55-07:00</updated>
+  <id>http://danloman.org/</id>
+  <author>
+    <name><![CDATA[Dan Loman]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Password Manager]]></title>
+    <link href="http://danloman.org/blog/2014/07/14/password-manager/"/>
+    <updated>2014-07-14T22:22:00-07:00</updated>
+    <id>http://danloman.org/blog/2014/07/14/password-manager</id>
+    <content type="html"><![CDATA[<p>Passwords are annoying.
+I am not very good at remembering passwords and I am even worse at remembering strong passwords.
+While I am fully aware of how insecure it is to reuse passwords,
+it is so much easier that I usually ending up doing it in practice.
+There are several solutions to this problem, the most common being storing passwords in an encrypted volume
+or using an online password manager. I don&rsquo;t like either of those solutions because all of your passwords are being stored on disk on even worse on someone else&rsquo;s machine. So I built my own password generator using hash functions.</p>
+
+<!-- more -->
+
+
+<h2>Hash Function</h2>
+
+<p>according to wikipedia</p>
+
+<blockquote><p>&ldquo;a <a href=http://en.wikipedia.org/wiki/Cryptographic_hash_function> cryptographic hash function </a>
+is a function which generates fixed-length output data that acts as a shortened reference to the original
+data which is considered practically impossible to invert, that is, to recreate the input data from its hash value alone.&rdquo;</p></blockquote>
+
+<p>This impossibility to invert means that even if my password gets leaked it is impossible to get the string from which my password was generated.
+And as long as there are no collisions in the hash function it is guaranteed that all password + website combinations will generate a unique alpha numeric string.</p>
+
+<h2>What my app does</h2>
+
+<p>The application is quite simple.
+It takes input from the user for a password and website.
+It then concatenates those strings together and feeds that string as an input to the SHA1 hash function.
+The first 10 digits of the output of the SHA1 function are then copied into the copy/paste buffer
+of the system to be pasted into the password field for the site.</p>
+
+<h2>The Code</h2>
+
+<pre><code>#!/bin/bash
+printf "Enter Password Please: "
+stty -echo
+read pass
+printf "\nEnter Website Please: "
+stty echo
+read site
+printf '\n'
+echo ${pass/ /}${site/ /} |openssl sha1 |cut -c 10-19|xclip -selection c
+history -d $((HISTCMD-0))
+exit
+</code></pre>
+
+<h2>Cross Platform</h2>
+
+<p>I originally wrote this app as a bash script and used it for almost a year that way.
+The issue with this was when i was on my phone I had to log in via ssh run the command
+and then copy from the terminal app.
+This was a pain, and since this was a very simple application I figured it would be a
+good project to learn android development with.
+So I wrote an android application which does the exact same thing as the bash script.
+Its not the prettiest app in the world but it works great.
+You can check out the android app on my
+<a href=http://github.com/dloman/PasswordManager.git> Github Page </a></p>
+
+<p>Let me know if you have any improvements, questions, gaping security holes, or comments!</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Hopeless Lomantic]]></title>
+  <link href="http://danloman.org/atom.xml" rel="self"/>
+  <link href="http://danloman.org/"/>
+  <updated>2015-03-12T13:21:55-07:00</updated>
+  <id>http://danloman.org/</id>
+  <author>
+    <name><![CDATA[Dan Loman]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Password Manager]]></title>
+    <link href="http://danloman.org/blog/2014/07/14/password-manager/"/>
+    <updated>2014-07-14T22:22:00-07:00</updated>
+    <id>http://danloman.org/blog/2014/07/14/password-manager</id>
+    <content type="html"><![CDATA[<p>Passwords are annoying.
+I am not very good at remembering passwords and I am even worse at remembering strong passwords.
+While I am fully aware of how insecure it is to reuse passwords,
+it is so much easier that I usually ending up doing it in practice.
+There are several solutions to this problem, the most common being storing passwords in an encrypted volume
+or using an online password manager. I don&rsquo;t like either of those solutions because all of your passwords are being stored on disk on even worse on someone else&rsquo;s machine. So I built my own password generator using hash functions.</p>
+
+<!-- more -->
+
+
+<h2>Hash Function</h2>
+
+<p>according to wikipedia</p>
+
+<blockquote><p>&ldquo;a <a href=http://en.wikipedia.org/wiki/Cryptographic_hash_function> cryptographic hash function </a>
+is a function which generates fixed-length output data that acts as a shortened reference to the original
+data which is considered practically impossible to invert, that is, to recreate the input data from its hash value alone.&rdquo;</p></blockquote>
+
+<p>This impossibility to invert means that even if my password gets leaked it is impossible to get the string from which my password was generated.
+And as long as there are no collisions in the hash function it is guaranteed that all password + website combinations will generate a unique alpha numeric string.</p>
+
+<h2>What my app does</h2>
+
+<p>The application is quite simple.
+It takes input from the user for a password and website.
+It then concatenates those strings together and feeds that string as an input to the SHA1 hash function.
+The first 10 digits of the output of the SHA1 function are then copied into the copy/paste buffer
+of the system to be pasted into the password field for the site.</p>
+
+<h2>The Code</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>printf "Enter Password Please: "
+</span><span class='line'>stty -echo
+</span><span class='line'>read pass
+</span><span class='line'>printf "\nEnter Website Please: "
+</span><span class='line'>stty echo
+</span><span class='line'>read site
+</span><span class='line'>printf '\n'
+</span><span class='line'>echo ${pass/ /}${site/ /} |openssl sha1 |cut -c 10-19|xclip -selection c
+</span><span class='line'>history -d $((HISTCMD-0))
+</span><span class='line'>exit</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Cross Platform</h2>
+
+<p>I originally wrote this app as a bash script and used it for almost a year that way.
+The issue with this was when i was on my phone I had to log in via ssh run the command
+and then copy from the terminal app.
+This was a pain, and since this was a very simple application I figured it would be a
+good project to learn android development with.
+So I wrote an android application which does the exact same thing as the bash script.
+Its not the prettiest app in the world but it works great.
+You can check out the android app on my
+<a href=http://github.com/dloman/PasswordManager.git> Github Page </a></p>
+
+<p>Let me know if you have any improvements, questions, gaping security holes, or comments!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[update to cli script]]></title>
+    <link href="http://danloman.org/blog/2014/07/13/update-to-cli-script/"/>
+    <updated>2014-07-13T04:45:00-07:00</updated>
+    <id>http://danloman.org/blog/2014/07/13/update-to-cli-script</id>
+    <content type="html"><![CDATA[<p>A while back I wrote a <a href=http://danloman.org/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/> little bash function</a>
+which automatically creates bash aliases for moving around in commonly used directories in my file system.
+This worked awesomely until one day I was working on a machine where I was not my normal username.
+The root of my problem was that I use a synced bash_alias file, so  all of my bash_alias files are identical across multiple machines and users.
+normal this works great, but when I used the alias and moved to edit files in what i thought was /home/differentuser/Source/ I was acutally editing /home/dloman/Source/.
+I didnt realize this mistake and got very confused when I tried to save my edits and was unable to.
+Needless to say it took me awhile of flailing about, thinking I was completly insane until I figured out what was happening.
+I edited the my mark function with this sed command to replace the expanded <code>$HOME</code> path with the actual string <code>$HOME</code>. The updated command is as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function mark
+</span><span class='line'>{
+</span><span class='line'>  echo "alias $1='cd $(pwd)'" | sed -e "s:$HOME:\$HOME:g" &gt;&gt; ~/Dropbox/Config/bash_aliases ;
+</span><span class='line'>  source ~/Dropbox/Config/bash_aliases
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now my bash_aliases file is sharable regardless of which user I am logged in as.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Blastomatic - Red Bull Creation Contest]]></title>
+    <link href="http://danloman.org/blog/2014/07/13/blastomatic-red-bull-creation-contest/"/>
+    <updated>2014-07-13T03:03:00-07:00</updated>
+    <id>http://danloman.org/blog/2014/07/13/blastomatic-red-bull-creation-contest</id>
+    <content type="html"><![CDATA[<p>Here&rsquo;s another post of an old project.
+This project was our team&rsquo;s entry for the 2013 Red Bull creation contest.
+The Blastomatic is a electronically controlled super soaker which spells out the word Red Bull in electro-luminescent water.</p>
+
+<iframe width="560" height="315" src="//www.youtube.com/embed/fJA9rj_0ZhA" frameborder="0" allowfullscreen></iframe>
+
+
+
+
+<!-- more -->
+
+
+<p>Our original plan was to make the super soaker write out words in gasoline and then shoot
+bottle rockets at the wall and light the words on fire.
+We quickly realized pressurizing gasoline and fire dont mix to well.
+So we decided to use water that we dissolved a bunch of yellow highlighters into and
+used black lights to make make the water glow.</p>
+
+<h1>Build Process</h1>
+
+<p>We procrastinated WAY to much on this project so the entire project was done in 2 weekends.
+The second and final weekend we worked on this project was the weekend of my sisters wedding,
+so I did all of the debugging via ssh connection on my cellphone.
+That was definitely not my favorite way to code/debug.</p>
+
+<h1>Results</h1>
+
+<p>We finally got everything &ldquo;working&rdquo; late Sunday night and while the control code was definitely
+not what I would have liked in terms of polish (long pauses on direction change, and flow control).
+If you know in advance what the Blastomatic is spelling out and watch the video you can actually
+see it what it says, but watching without knowing anything I think it would just look like
+random streams of water.
+I would have loved to have more time to get everything working better but that doesn&rsquo;t always
+work out.
+Still tarping off our living room and blasting highlighter water everywhere was pretty awesome.
+In the end we had a lot of fun, ate way to much taco bell, and had a mostly working project in the end.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Key-less entry and ignition system]]></title>
+    <link href="http://danloman.org/blog/2014/07/04/keyless-entry-and-ignition-system/"/>
+    <updated>2014-07-04T14:11:00-07:00</updated>
+    <id>http://danloman.org/blog/2014/07/04/keyless-entry-and-ignition-system</id>
+    <content type="html"><![CDATA[<p>This project, is an old project I did as my final exam for UCSB Physics 128BL, Digital Electronics Lab. watch the video for a demonstration or click through for more (albeit sparse) details.</p>
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/wIs6U7mWE40" frameborder="0" allowfullscreen></iframe>
+
+
+<!-- more -->
+
+
+<p>This project was very simple. And unfortunately I didn&rsquo;t document the process of installing this system into my car.
+Pictures of cutting a hole in the side of my car would be awesome to have&hellip;
+None the less this system is an off the shelf ($15 swap meet) key-less ignition system wired into
+the cars&#8217; starter and an Arduino wired to 2 keypads.
+One of the keypad is outside the car for lock/unlock,
+and the other keypad is on the inside of the door for ignition.
+The Arduino listens for the correct password on the keypad
+and then triggers an npn transistor wired to the remote of the key-less ignition system
+or the lock unlock switch of the car.
+The youtube video is really the only documentation I took of the entire project,
+but figured I would do a small writeup because this worked pretty well for such a simple solution.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Adjustable Desk]]></title>
+    <link href="http://danloman.org/blog/2014/03/20/adjustable-desk/"/>
+    <updated>2014-03-20T13:19:00-07:00</updated>
+    <id>http://danloman.org/blog/2014/03/20/adjustable-desk</id>
+    <content type="html"><![CDATA[<p>Hello Internets. I hope you have been doing great.
+I work at a computer 40+ hours week and sitting for that long isn&rsquo;t good for you.
+So I been wanting to try out a standing desk. I was definitely not certain I could stand for an 8 hour day
+and not wanting to be in lots of pain I decided to make an adjustable desk.
+So my roommate and I built me an adjustable desk. It came out amazingly well.
+For buildpics and comments click the link.</p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13451225113" title="Adjustable Desk by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3716/13451225113_93ee292648.jpg" width="500" height="375" alt="Adjustable Desk"></a></p>
+
+<!-- more -->
+
+
+<h2>Planning Process</h2>
+
+<p>I thought a lot about making an adjustable desk cheaply, a coworker of mine built an adjustable
+topper for his desk very cheaply using 2 pieces of plywood an electric drill and a RV jack stand.
+<a href="https://www.flickr.com/photos/108066226@N08/13440652345" title="Untitled by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3735/13440652345_06d567e6d1.jpg" width="500" height="375" alt="Untitled"></a>
+This setup works well and is super cheap and easy, but doesn&rsquo;t look great.
+So I looked for different options. I was really impressed with the look of the <a href="http://www.milk.dk"> Milk Desk</a>.
+I thought about making my own version of the milk desk with a large RV jack stand inside the center console.
+There were some issues with the format of the milk desk that I don&rsquo;t like.
+Mostly with a center column it makes sitting at the center of the desk awkward for your knees and
+if it&rsquo;s not centered then it would be difficult to remain stable.
+This led me to this guys build which looked great.
+So I picked up some linear actuators on eBay for approx $40 each.
+So I went to home depot picked up a sheet of cheap hardwood plywood and some aluminum strips we started building.
+My roommate is a finish carpenter so he was responsible for all of the wood working awesomeness.</p>
+
+<p>That left me responsible for the electronics.
+It&rsquo;s a very simple circuit containing an ATX power supply for the +5v(micro) and
+the +12v &amp; -12V (the actuators run on 24v), adafruit&rsquo;s <a href="https://www.adafruit.com/products/1501">trinket</a>
+(to read the buttons and switch the relays), 2 rad looking <a href="https://www.adafruit.com/products/559">buttons</a>
+a dpdt relay(to reverse the polarity of the power to the actuators), and dpst relay (on and off power to the actuators).</p>
+
+<h2>Build Pics/Log</h2>
+
+<p>The build process took way longer then it should have mostly because I am still bad at making things in the real world.  There were also a lot of issues with inductive voltage spikes on switching on/off the actuators.</p>
+
+<p>Cutting the desk and adding a lip to the bottom went pretty quickly the thing that took forever was adding the metal edge.
+Here is the feet and the monitor stand.</p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419933233" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3750/13419933233_c66f16ffbf.jpg" width="500" height="375" alt="Adjustable Desk Build"></a></p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419930843" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm3.staticflickr.com/2874/13419930843_40d3fb1246.jpg" width="500" height="375" alt="Adjustable Desk Build"></a></p>
+
+<p>We used wall flanges and pipe fittings to attach the desk to the feet.</p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419808145" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm8.staticflickr.com/7373/13419808145_d36c7d6a29.jpg" width="375" height="500" alt="Adjustable Desk Build"></a></p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13420174364" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm6.staticflickr.com/5172/13420174364_d678248b72.jpg" width="375" height="500" alt="Adjustable Desk Build"></a></p>
+
+<p>after we sanded/ground down the metal lip and sanded the desk we put some red stain and sealed the desk.</p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419921433" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm6.staticflickr.com/5167/13419921433_5d3b9b66a6.jpg" width="500" height="375" alt="Adjustable Desk Build"></a></p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419917163" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3817/13419917163_01e252eb0f.jpg" width="500" height="375" alt="Adjustable Desk Build"></a></p>
+
+<p>Without more support the desk was very unstable. So we (my roommate) built some boxes.</p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419797085" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3746/13419797085_dddd1fcff6.jpg" width="375" height="500" alt="Adjustable Desk Build"></a></p>
+
+<p>The small box attaches to the foot and the large box attaches to the underside of the desk.</p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419782885" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm8.staticflickr.com/7123/13419782885_62d09e94d2.jpg" width="500" height="375" alt="Adjustable Desk Build"></a></p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419897873" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3813/13419897873_5a11a823bd.jpg" width="375" height="500" alt="Adjustable Desk Build"></a></p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419895973" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3806/13419895973_07fe6c154a.jpg" width="375" height="500" alt="Adjustable Desk Build"></a></p>
+
+<p>This is what the desk looks like when it lowered.</p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419783995" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm3.staticflickr.com/2897/13419783995_01cd1e7703.jpg" width="500" height="375" alt="Adjustable Desk Build"></a></p>
+
+<p>And this is what it looks like raised.</p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419777015" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm3.staticflickr.com/2855/13419777015_c0e85a9185.jpg" width="500" height="375" alt="Adjustable Desk Build"></a></p>
+
+<p>Here i am calibrating the 2 actuators by with power resistors to slow one of the down so they move at approximately the same speed.</p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13419890343" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm3.staticflickr.com/2882/13419890343_537668f9e3.jpg" width="375" height="500" alt="Adjustable Desk Build"></a></p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13420139994" title="Adjustable Desk Build by Daniel Loman, on Flickr"><img src="https://farm8.staticflickr.com/7160/13420139994_e6dd59d6c4.jpg" width="500" height="375" alt="Adjustable Desk Build"></a></p>
+
+<p>And here again is the finished product.</p>
+
+<p><a href="https://www.flickr.com/photos/108066226@N08/13451225113" title="Adjustable Desk by Daniel Loman, on Flickr"><img src="https://farm4.staticflickr.com/3716/13451225113_93ee292648.jpg" width="500" height="375" alt="Adjustable Desk"></a></p>
+
+<h2>Future Additions</h2>
+
+<p>There are quite a lot of additions I want to make to the desk.
+Mostly using a proper H-Bridge motor controller instead of my janky DPDT nonsense.
+The actuators I have also have built in hall effect sensors, so I really want to be able to read those and
+auto level the desk. The desk is working great and looks awesome and I am loving standing most of the day.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Remote Controlled Power Outlet]]></title>
+    <link href="http://danloman.org/blog/2013/12/23/remote-controlled-power-outlet/"/>
+    <updated>2013-12-23T12:29:00-08:00</updated>
+    <id>http://danloman.org/blog/2013/12/23/remote-controlled-power-outlet</id>
+    <content type="html"><![CDATA[<p>Was on adafruit a few weeks backs and found <a href="https://www.adafruit.com/products/1097"> this little guy </a> and <a href="https://www.adafruit.com/products/1095"> the corresponding remote </a>.
+I immeditely purchased that I had one of these <a href="http://www.amazon.com/BeesClover-4-Channel-interface-dupont-15-20mA/dp/B00E4HJA0Q/ref=sr_1_7?ie=UTF8&qid=1387830865&sr=8-7&keywords=relay+board"> relay boards </a> lying around in my closet. So i decided to make a 315 Mhz controlled junction box for turning on my lights with a remote. Here is a video of the finished product</p>
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/3by3tbnun00" frameborder="0" allowfullscreen></iframe>
+
+
+<p>Here is how I made this bad boy.</p>
+
+<!-- more -->
+
+
+<p><b> Parts List: </b><br>
+<a href="https://www.adafruit.com/products/1097"> Remote Board </a> <br>
+<a href="https://www.adafruit.com/products/1095"> KeyFob </a><br>
+<a href="http://www.amazon.com/BeesClover-4-Channel-interface-dupont-15-20mA/dp/B00E4HJA0Q/ref=sr_1_7?ie=UTF8&qid=1387830865&sr=8-7&keywords=relay+board"> Relay Board</a><br>
+<a href="http://www.homedepot.com/p/Steel-City-2-Gang-Square-Electrical-Box-521711234EW-30R/202590467#"> Junction Box </a><br>
+<a href="http://www.homedepot.com/p/Leviton-15-Amp-Duplex-Outlet-White-R52-05320-00W/202066670#"> 2x Outlets </a><br>
+<a href="http://www.homedepot.com/p/Leviton-2-Gang-Duplex-Outlet-Wall-Plate-Ivory-R51-86016-00I/100046108?N=arcd%2FNtk-All%2FNtt-Outlet%252BWall%252BPlate%3FNs%3DP_REP_PRC_MODE%257C0%26NCNI-5#"> Outlet Cover </a> <br>
+<b> Stuff I had laying around </b><br>
+5v old cell phone charger <br>
+Old computer power supply cable <br>
+fiber glass resin (optional) <br></p>
+
+<p><b> Step 1:</b><br>
+Look at the location of the vcc gnd and control pins on your relay board and match them up as best as possible with your remote board.</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11520002913/player/924bb87a6d" height="480" width="640"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p><br>
+<b> Step 2:</b><br>
+Solder the corresponding pins from the relay to the remote. (there is a orange wire in in the back/underneath hooking up my vcc)</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519997473/player/65477bd33d" height="480" width="640"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p><br>
+<b> Step 3:</b><br>
+Attach longer leads to ground and vcc to allow for connection to a power supply.</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519888165/player/f1702f4226" height="480" width="640"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p><br>
+<b> Step 4:</b><br>
+Take the junction box and line the inside with electrical tape. this will keep things from shorting accidentally. Also if you decide to try and waterproof it will take the resin from seeping through the holes.<br></p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519881095/player/6367fb057d" height="640" width="480"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p><br>
+<b> Step 5:</b><br>
+Take the outlets and on the cold side (big prong) on both outlets break off the tab connecting the 2 junctions together. If you look closely in the picture I have broken off the tab on the plug on the right but not yet for the one on the left. <br></p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519879395/player/a87c0062bf" height="640" width="480"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p><br>
+<b> Step 6:</b><br>
+Connect 4 wires to the middle slot of each relay and solder them together</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519955486/player/dd19df626d" height="640" width="480"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p><br>
+<b> Step 7:</b><br>
+Grab an old cellphone charger (the smaller the better) and connect 5v to vcc and gnd to gnd.</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519973103/player/f2cec6a0ae" height="640" width="480"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p><br></p>
+
+<p><b> Step 8:</b><br>
+Attach the the 4 cold pins to the left post of the relay.
+If you want specific order in which outlet is controlled by which button this is the time to figure this out.
+Depending on how you soldered the controller make sure your desired button controls the corresponding desired outlet.
+(You can always test this by powering up the dc power supply and seeing which lights on the relay board switch when specific buttons are pressed and wiring the desired outlets from there.)</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519884284/player/2aea9368c8" height="640" width="480"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p><br>
+<b> Step 9:</b><br>
+Connect the neutral line to the 4 lines coming out of the outlets (2 green and 2 black for me), and connect the hot line to the 4 lines that you soldered together in step 6. Then hook up the cellphone power supply to the 120v hot and nuetral lines to give it power.
+Connect the ground pin of the power cords to the ground lead on one of the electrical outlets. This will wire the case to ground and provide some saftey if something accidentally shorts against the housing.
+Then double check everything is taped and heat shrunked safely and plug it in and test and make sure everything works.</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519878864/player/769618d50b" height="480" width="640"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p><br></p>
+
+<p><br>
+<b> Step 10:</b><br>
+Carefully cram everything into the junction box and tighten all the screws</p>
+
+<iframe src="https://www.flickr.com/photos/108066226@N08/11519966443/player/aa82b20a6a" height="480" width="640"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p><br></p>
+
+<p><b>Step 11:(I havent tried this one yet&hellip;)</b><br>
+To make the electronics inside water resistant fill the junction box with fiberglass resin. this will allow the box to be used outside and get rained on&hellip;.or you could spend a little more money and just buy a water proof junction box and outlets from the start and be significantly safer&hellip;but where is the fun in that?
+<br>
+Questions? Comments? Let me know what you think!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Alternative for quick cli filesystem navagation shortcutting]]></title>
+    <link href="http://danloman.org/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/"/>
+    <updated>2013-12-19T22:00:00-08:00</updated>
+    <id>http://danloman.org/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting</id>
+    <content type="html"><![CDATA[<p>I saw this great <a href="http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html"> blog post</a> about an easy way to create and remove shortcuts for commandline navagation to often used directories.
+In the past I would often manually make bash aliases for commonly used directories, so I was psyched to automate this. I much prefer just typing the <code>DirName</code> instead of the <code>jump DirName</code> used in Jeroen&rsquo;s version, so I modified his commands with my own.
+Here are the commands I came up with.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function mark {
+</span><span class='line'>  echo "alias $1='cd $(pwd)'" &gt;&gt; ~/Dropbox/Config/bash_aliases ; source ~/Dropbox/Config/bash_aliases
+</span><span class='line'>}
+</span><span class='line'>function unmark {
+</span><span class='line'>  sed -e "/^alias $1='cd/d" -i ~/Dropbox/Config/bash_aliases ; source ~/Dropbox/Config/bash_aliases
+</span><span class='line'>}
+</span><span class='line'>function marks {
+</span><span class='line'>  cat ~/Dropbox/Config/bash_aliases | grep "='cd" | sed -e 's/alias //' -e "s/='cd / \=\&gt; /" -e "s/'$//" -e "/^  echo /d" -e "/&&/d" -e "/^  sed/d"
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<!-- more -->
+
+
+<p>This may not be the most elegant way of doing things (that sed command is fairly heinous) but it works great.</p>
+
+<p>BTW keeping my bash_aliases file inside of dropbox is amazing&hellip;aliases and functions instantly appear on all my machines. It&rsquo;s rad.</p>
+
+<p>P.S. originally I had the <code>unmark</code> command looking like this</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>}
+</span><span class='line'>function unmark {
+</span><span class='line'>  sed -e "/^alias $1/d" -i ~/.bash_aliases ; source ~/.bash_aliases
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which seems like a only minor modification from the current version. This seemingly minor change of <code>alias $1</code> -> <code>alias $1='cd</code> looks like nothing, but one time I accidentally typed</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$mark</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which created the line <code>alias ='cd ~/WhereverIWasWhenIDidThis'</code> in my <code>~/Dropbox/Config/bash_aliases</code>
+realising I just made a empty alias I immediatly tried removing the alias with</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$unmark</span></code></pre></td></tr></table></div></figure>
+
+
+<p>which proceded to delete all aliases in my <code>~/Dropbox/Config/bash_aliases</code>!!!
+That was interesting, thank goodness for dropbox backing things up (another reason to keep config files in dropbox).
+Let me know what you think in the comments or hit me up on twitter.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dinosaucers]]></title>
+    <link href="http://danloman.org/blog/2013/11/07/dinosaucers/"/>
+    <updated>2013-11-07T21:30:00-08:00</updated>
+    <id>http://danloman.org/blog/2013/11/07/dinosaucers</id>
+    <content type="html"><![CDATA[<p>Considering It&rsquo;s made entirely out of cardboard, hotglue, paint and lights I am super stoked with how well this years Halloween costume came out.</p>
+
+<p><a href="http://www.flickr.com/photos/108066226@N08/10737240104/" title="Dinosaucers love to party by lomancer, on Flickr"><img src="http://farm8.staticflickr.com/7357/10737240104_f7c60a45ff.jpg" width="375" height="500" alt="Dinosaucers love to party"></a></p>
+
+<!-- more -->
+
+
+<p>Was parusing boing boing a few months ago and I came upon this gem from childhood</p>
+
+<iframe width="640" height="390" src="//www.youtube.com/embed/zjhJSD8RU4k" frameborder="0" allowfullscreen></iframe>
+
+
+<p>I decided to make a halloween costume out of a combination of the adafruit led matrix eyes and a triceratops head.
+Kinda forgot to take a lot of pictures until it was mostly assembled already&hellip;</p>
+
+<p><a href="http://www.flickr.com/photos/108066226@N08/10734104534/" title="2013-10-27 15.18.04 by lomancer, on Flickr"><img src="http://farm8.staticflickr.com/7385/10734104534_f7eef64039_b.jpg" width="1024" height="768" alt="2013-10-27 15.18.04"></a></p>
+
+<p><a href="http://www.flickr.com/photos/108066226@N08/10737149465/" title="Dinosaucers love to party by lomancer, on Flickr"><img src="http://farm8.staticflickr.com/7327/10737149465_5e0fef04cd_b.jpg" width="1024" height="765" alt="Dinosaucers love to party"></a></p>
+
+<p><a href="http://www.flickr.com/photos/108066226@N08/10734093276/" title="2013-10-29 19.15.54 by lomancer, on Flickr"><img src="http://farm4.staticflickr.com/3805/10734093276_bb23bae1f1_b.jpg" width="768" height="1024" alt="2013-10-29 19.15.54"></a></p>
+
+<p><a href="http://www.flickr.com/photos/108066226@N08/10734308633/" title="2013-10-29 20.09.48 by lomancer, on Flickr"><img src="http://farm6.staticflickr.com/5480/10734308633_2cba56f37a_b.jpg" width="1024" height="768" alt="2013-10-29 20.09.48"></a></p>
+
+<p><a href="http://www.flickr.com/photos/108066226@N08/10734308463/" title="2013-10-30 18.52.02 by lomancer, on Flickr"><img src="http://farm4.staticflickr.com/3711/10734308463_0b8e55dfff_b.jpg" width="768" height="1024" alt="2013-10-30 18.52.02"></a></p>
+
+<p><a href="http://www.flickr.com/photos/108066226@N08/10734092366/" title="2013-10-31 00.07.21 by lomancer, on Flickr"><img src="http://farm4.staticflickr.com/3833/10734092366_c84aed834b_b.jpg" width="768" height="1024" alt="2013-10-31 00.07.21"></a></p>
+
+<p><a href="http://www.flickr.com/photos/108066226@N08/10734003955/" title="2013-10-31 18.21.16 by lomancer, on Flickr"><img src="http://farm8.staticflickr.com/7415/10734003955_4592f76e56_b.jpg" width="768" height="1024" alt="2013-10-31 18.21.16"></a></p>
+
+<p><a href="http://www.flickr.com/photos/108066226@N08/10734307903/" title="2013-10-31 20.17.27 by lomancer, on Flickr"><img src="http://farm6.staticflickr.com/5503/10734307903_a3ba12b3f0_b.jpg" width="768" height="1024" alt="2013-10-31 20.17.27"></a></p>
+
+<p><a href="http://www.flickr.com/photos/108066226@N08/10734091536/" title="2013-10-31 20.17.34 by lomancer, on Flickr"><img src="http://farm6.staticflickr.com/5475/10734091536_32d33ce405_b.jpg" width="1024" height="768" alt="2013-10-31 20.17.34"></a></p>
+
+<p>Let me know what you think.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New Mail Script]]></title>
+    <link href="http://danloman.org/blog/2013/10/15/new-mail-script/"/>
+    <updated>2013-10-15T22:28:00-07:00</updated>
+    <id>http://danloman.org/blog/2013/10/15/new-mail-script</id>
+    <content type="html"><![CDATA[<p>Wrote a quick little script today to check and see if I have new email.
+I am using the standard imaplib library along with python-ntlm with a imap patch found on <a href="https://github.com/xulz/python-ntlm">https://github.com/xulz/python-ntlm</a>
+I didn&rsquo;t really want to save my cleartext password in the script so pickled the <code>ImapNtlmAuthHandler</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>AuthFile = open(SuperCoolFileLocation,'wb')
+</span><span class='line'>AuthHandler = IMAPNtlmAuthHandler(r"domain\username", "password")
+</span><span class='line'>pickle.dump(AuthHandler, AuthFile)
+</span><span class='line'>AuthFile.close()</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&rsquo;s probably not much more secure, but it&rsquo;s more secure then saving in plaintext. If I am wrong and there is a better safer way to do it let me know.</p>
+
+<!-- more -->
+
+
+<p>Here is the the script I use to get the total number of messages.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import getpass, imaplib, pickle
+</span><span class='line'>
+</span><span class='line'>def GetNumberOfMessages():
+</span><span class='line'>    Mailbox = imaplib.IMAP4("server.address")
+</span><span class='line'>      AuthenticationToken = pickle.load(open('/home/dloman/dloman/imap.auth','rb'))
+</span><span class='line'>      Mailbox.authenticate("NTLM", AuthenticationToken)
+</span><span class='line'>      Mailbox.select(readonly=True)
+</span><span class='line'>      Typ, MessageNums = Mailbox.search(None,'UNSEEN')
+</span><span class='line'>      if '' in MessageNums:
+</span><span class='line'>        return 0
+</span><span class='line'>      return len(MessageNums[0].split(' '))
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>if __name__ == '__main__':
+</span><span class='line'>  print print 'Number Of New Messages =',GetNumberOfMessages()</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+</feed>
