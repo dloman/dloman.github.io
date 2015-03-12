@@ -35,12 +35,26 @@ article{
 	.entry-content{
 		line-height: 1.5;
 		text-align: left;
-		a{
-			&:hover{
-				text-decoration:none;
-
-			}
+		
+				a {
+ 			text-decoration:none;
+			color:#bf0222;
+			-webkit-transition:border .25s linear;
+			-moz-transition:border .25s linear;
+			-ms-transition:border .25s linear;
+			transition:border .25s linear;
+			outline:none;
 		}
+
+		a:link,a:visited {
+			border-bottom:1px solid rgba(191,2,34,0);
+		}
+
+		a:hover {
+			border-bottom:1px solid #bf0222;
+		}
+
+		
 		.more-link{
 			display: block;
 			margin-top: 16px;
@@ -87,6 +101,7 @@ article{
 				width: 100%;
 			}
 		}
+		
 		img, video{
 			max-width: 100%;
 			height: auto;
@@ -101,6 +116,7 @@ article{
 			box-shadow:0 0 15px rgba(0,0,0,0.35);
 			border-bottom: 0px;
 		}
+		
 		blockquote{
 			background: $color-gray04;
 			border-left: 5px solid $color-gray03;
