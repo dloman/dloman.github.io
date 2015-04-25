@@ -10,9 +10,7 @@
 
 <meta name="author" content="Dan Loman"> 
 
-<meta name="description" content="Here&#8217;s another post of an old project.
-This project was our team&#8217;s entry for the 2013 Red Bull creation contest.
-The Blastomatic is a &hellip;"> <meta name="keywords" content="">
+<meta name="description" content="a long while back I wrote some little bash function which automatically create bash aliases for moving around commonly used areas in my file system &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -97,6 +95,60 @@ $(document).ready(
 </header>
 
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/07/13/update-to-cli-script/">
+		
+			Update to Cli Script</a>
+	</h2>
+	<div class="entry-content">
+		<p>a long while back I wrote some little bash function which automatically create bash aliases for moving around commonly used areas in my file system. This worked awesome until one day I was working on a machine where i was not my normal username. I use a synced bash_alias file when I used the alias and moved to edit files in /home/dloman/Source/ and was not the dloman user things got very confusing when I tried to save my edits. Needless to say it took me awhile of thinking I was completly insane until I figured out what was happening. I edited the file with the sed command to replace the expanded <code>$HOME</code> path with the actual string <code>$HOME</code>. the command is as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function mark
+</span><span class='line'>{
+</span><span class='line'>  echo "alias $1='cd $(pwd)'" &gt;&gt; ~/Dropbox/Config/bash_aliases ;
+</span><span class='line'>  source ~/Dropbox/Config/bash_aliases
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-13T04:45:00-07:00" pubdate data-updated="true">Jul 13<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/aliases/'>aliases</a>, <a class='category' href='/blog/categories/bash/'>bash</a>, <a class='category' href='/blog/categories/cli/'>cli</a>, <a class='category' href='/blog/categories/sed/'>sed</a>
+
+
+</div>
+	
+		<span class="comments"><a href="/blog/2014/07/13/update-to-cli-script//index.html#disqus_thread">Comments</a></span>
+	
+</div></article>
 
 
     <article class="post">

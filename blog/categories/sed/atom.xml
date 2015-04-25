@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: sed | Hopeless Lomantic]]></title>
+  <link href="http://dloman.github.io/blog/categories/sed/atom.xml" rel="self"/>
+  <link href="http://dloman.github.io/"/>
+  <updated>2014-07-13T05:01:04-07:00</updated>
+  <id>http://dloman.github.io/</id>
+  <author>
+    <name><![CDATA[Dan Loman]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[update to cli script]]></title>
+    <link href="http://dloman.github.io/blog/2014/07/13/update-to-cli-script/"/>
+    <updated>2014-07-13T04:45:00-07:00</updated>
+    <id>http://dloman.github.io/blog/2014/07/13/update-to-cli-script</id>
+    <content type="html"><![CDATA[<p>a long while back I wrote some little bash function which automatically create bash aliases for moving around commonly used areas in my file system. This worked awesome until one day I was working on a machine where i was not my normal username. I use a synced bash_alias file when I used the alias and moved to edit files in /home/dloman/Source/ and was not the dloman user things got very confusing when I tried to save my edits. Needless to say it took me awhile of thinking I was completly insane until I figured out what was happening. I edited the file with the sed command to replace the expanded <code>$HOME</code> path with the actual string <code>$HOME</code>. the command is as follows:</p>
+
+<p><code>
+function mark
+{
+  echo "alias $1='cd $(pwd)'" &gt;&gt; ~/Dropbox/Config/bash_aliases ;
+  source ~/Dropbox/Config/bash_aliases
+}
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>
