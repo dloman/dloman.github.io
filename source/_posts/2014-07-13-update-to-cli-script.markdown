@@ -8,8 +8,8 @@ categories: [bash, aliases, cli, sed]
 ---
 A while back I wrote a <a href=http://danloman.org/blog/2013/12/19/alternative-for-quick-cli-filesystem-navagation-shortcutting/> little bash function</a>
 which automatically creates bash aliases for moving around in commonly used directories in my file system.
-This worked awesomely until one day I was working on a machine where I was not my normal username.
-The root of my problem was that I use a synced bash_alias file, so  all of my bash_alias files are identical across multiple machines and users.
+This worked awesomely until one day I was working on a machine where I had more then one username.
+The root of my problem was that I use a synced bash_alias file, so all of my bash_alias files are identical across multiple machines and users.
 normal this works great, but when I used the alias and moved to edit files in what i thought was /home/differentuser/Source/ I was acutally editing /home/dloman/Source/.
 I didnt realize this mistake and got very confused when I tried to save my edits and was unable to.
 Needless to say it took me awhile of flailing about, thinking I was completly insane until I figured out what was happening.
